@@ -98,7 +98,7 @@
     </div>
     <!-- Imagen -->
     <div>
-        <x-input-label for="imagen" :value="__('Imagen')" />
+        <x-input-label for="imagen" :value="__('Imagen Nueva')" />
         <x-text-input 
             id="imagen" 
             class="block mt-1 w-full" 
@@ -112,7 +112,7 @@
             <img src="{{ asset('storage/vacantes/' . $imagen) }}" alt="{{ 'Imagen Vacante ' . $titulo }}">
         </div>
         <div class="my-5 w-80">
-            @if ($imagen_nueva)
+            @if($imagen_nueva)
                 Imagen Nueva: 
                 <img src="{{ $imagen_nueva->temporaryUrl() }}" alt="Previsaulizacion de la imagen seleccionada">
             @endif

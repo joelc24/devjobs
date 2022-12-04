@@ -6,6 +6,7 @@ use App\Models\Categoria;
 use App\Models\Salario;
 use App\Models\Vacante;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -19,7 +20,7 @@ class EditarVacante extends Component
     public $ultimo_dia;
     public $descripcion;
     public $imagen;
-    public $image_nueva;
+    public $imagen_nueva;
 
     use WithFileUploads;
 
@@ -48,15 +49,17 @@ class EditarVacante extends Component
     public function editarVacante()
     {
         $datos = $this->validate();
+        
+        //? ENCONTRAR LA VACANTE A EDITAR
+        $vacante = Vacante::find($this->vacante_id);
 
         //? SI HAY UNA NUEVA IMAGEN
         if ($this->imagen_nueva) {
-            $imagen = $this->image_nueva->store('public/vacantes');
+            $imagen = $this->imagen_nueva->store('public/vacantes');
             $datos['imagen'] = str_replace('public/vacantes/','',$imagen);
+            Storage::delete('public/vacantes/' . $vacante->imagen);
         }
 
-        //? ENCONTRAR LA VACANTE A EDITAR
-        $vacante = Vacante::find($this->vacante_id);
 
         //? ASGINAR LOS VALORES
         $vacante->titulo = $datos['titulo'];
