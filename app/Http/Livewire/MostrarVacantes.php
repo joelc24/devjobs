@@ -13,6 +13,12 @@ class MostrarVacantes extends Component
     // {
     //     dd($vacante_id);
     // }
+    protected $listeners = ['eliminarVacante'];
+
+    public function eliminarVacante(Vacante $vacante)
+    {
+        $vacante->delete();
+    }
 
     public function render()
     {
